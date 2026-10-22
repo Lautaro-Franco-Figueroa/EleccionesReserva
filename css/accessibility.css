@@ -1,0 +1,243 @@
+/**
+ * accessibility.css
+ * Reglas de Accesibilidad e Inclusión (WCAG 2.1 AA/AAA)
+ * - Modo de Alto Contraste para debilidad visual o daltonismo.
+ * - Escalado tipográfico accesible (Grande y Muy Grande).
+ * - Focus Visible optimizado para navegación por teclado / switch.
+ * - Adaptación responsive para pantallas táctiles de quiosco.
+ */
+
+/* ========================================================
+   1. Foco Visible para Navegación por Teclado
+   ======================================================== */
+button:focus-visible,
+input:focus-visible,
+[role="button"]:focus-visible,
+a:focus-visible {
+    outline: 3px solid #60a5fa !important;
+    outline-offset: 4px !important;
+    box-shadow: 0 0 12px rgba(96, 165, 250, 0.7) !important;
+}
+
+/* ========================================================
+   2. Escalado Tipográfico Dinámico
+   ======================================================== */
+body.font-large {
+    --font-base: 19px;
+}
+
+body.font-large .logo-title { font-size: 1.45rem; }
+body.font-large .step-title { font-size: 2.1rem; }
+body.font-large .candidate-name { font-size: 1.7rem; }
+body.font-large .candidate-proposals { font-size: 0.98rem; }
+body.font-large .btn { font-size: 1.2rem; padding: 16px 32px; }
+
+body.font-xlarge {
+    --font-base: 22px;
+}
+
+body.font-xlarge .logo-title { font-size: 1.65rem; }
+body.font-xlarge .step-title { font-size: 2.4rem; }
+body.font-xlarge .candidate-name { font-size: 1.95rem; }
+body.font-xlarge .candidate-proposals { font-size: 1.1rem; }
+body.font-xlarge .btn { font-size: 1.35rem; padding: 18px 36px; }
+
+/* ========================================================
+   3. Modo de Alto Contraste (WCAG AAA)
+   ======================================================== */
+body.high-contrast {
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-surface: #000000;
+    --bg-card: #0d0d0d;
+    --bg-card-hover: #171717;
+    --text-primary: #ffffff;
+    --text-secondary: #fef08a;
+    --text-muted: #e2e8f0;
+    --border-color: #ffffff;
+    --border-highlight: #ffff00;
+    
+    --primary: #ffff00;
+    --primary-hover: #facc15;
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+}
+
+body.high-contrast .app-header {
+    background: #000000;
+    border-bottom: 2px solid #ffffff;
+}
+
+body.high-contrast .step-panel {
+    border: 3px solid #ffffff;
+    background: #000000;
+}
+
+body.high-contrast .candidate-card {
+    border: 3px solid #ffffff;
+    background: #000000;
+}
+
+body.high-contrast .candidate-card:hover,
+body.high-contrast .candidate-card.selected {
+    border: 4px solid #ffff00 !important;
+    background: #111111;
+}
+
+body.high-contrast .candidate-card.selected .card-footer {
+    color: #ffff00;
+}
+
+body.high-contrast .btn-primary {
+    background: #ffff00;
+    color: #000000 !important;
+    font-weight: 900;
+    border: 2px solid #ffffff;
+}
+
+body.high-contrast .btn-success {
+    background: #22c55e;
+    color: #000000 !important;
+    font-weight: 900;
+    border: 2px solid #ffffff;
+}
+
+body.high-contrast .btn-warning {
+    background: #f59e0b;
+    color: #000000 !important;
+    font-weight: 900;
+    border: 2px solid #ffffff;
+}
+
+body.high-contrast .btn-secondary {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+body.high-contrast .nav-tab-btn.active {
+    background: #ffff00;
+    color: #000000 !important;
+    font-weight: 900;
+}
+
+body.high-contrast *:focus-visible {
+    outline: 4px solid #ffff00 !important;
+    outline-offset: 4px !important;
+}
+
+body.high-contrast .review-card-inner {
+    background: #000000;
+    border: 3px solid #ffffff;
+}
+
+body.high-contrast .modal-card {
+    background: #000000;
+    border: 4px solid #ffff00;
+}
+
+body.high-contrast .president-section-card,
+body.high-contrast .president-session-header,
+body.high-contrast .most-voted-card {
+    background: #000000;
+    border: 3px solid #ffffff;
+}
+
+body.high-contrast .padron-table th {
+    background: #111111;
+    color: #ffff00;
+    border-bottom: 2px solid #ffffff;
+}
+
+body.high-contrast .padron-table td {
+    border-bottom: 1px solid #ffffff;
+}
+
+body.high-contrast .badge-voted {
+    background: #22c55e;
+    color: #000000;
+    font-weight: 900;
+    border: 2px solid #ffffff;
+}
+
+body.high-contrast .badge-pending {
+    background: #000000;
+    color: #ffff00;
+    font-weight: 900;
+    border: 2px solid #ffff00;
+}
+
+body.high-contrast .leader-badge {
+    background: #ffff00;
+    color: #000000;
+    font-weight: 900;
+}
+
+body.high-contrast .tie-badge {
+    background: #38bdf8;
+    color: #000000;
+    font-weight: 900;
+}
+
+/* ========================================================
+   4. Diseño Adaptable / Responsive (Móviles, Tablets, Kioscos)
+   ======================================================== */
+@media (max-width: 900px) {
+    .header-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .nav-tabs-wrapper {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .accessibility-bar {
+        justify-content: center;
+    }
+
+    .stepper-nav {
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+
+    .review-card-inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .review-badge {
+        align-self: center;
+    }
+
+    .flow-actions {
+        flex-direction: column-reverse;
+        gap: 14px;
+    }
+
+    .flow-actions .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .step-panel {
+        padding: 20px 16px;
+    }
+
+    .candidate-card {
+        padding: 16px;
+    }
+
+    .card-image-wrap {
+        width: 130px;
+        height: 130px;
+    }
+
+    .stepper-nav::before {
+        display: none;
+    }
+}

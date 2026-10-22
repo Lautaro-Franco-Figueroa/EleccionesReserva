@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradBlank" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+    <filter id="shadowBlank" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="200" cy="200" r="190" fill="url(#bgGradBlank)" />
+  <circle cx="200" cy="200" r="185" fill="none" stroke="#cbd5e1" stroke-width="3" stroke-dasharray="8 6" opacity="0.5"/>
+
+  <!-- Ballot Box / Envelope Illustration -->
+  <g filter="url(#shadowBlank)">
+    <!-- Envelope Body -->
+    <rect x="100" y="140" width="200" height="140" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="4"/>
+    <!-- Envelope Flap -->
+    <path d="M 100 140 L 200 220 L 300 140 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="3"/>
+    <!-- Fold Lines -->
+    <line x1="100" y1="280" x2="180" y2="200" stroke="#cbd5e1" stroke-width="3"/>
+    <line x1="300" y1="280" x2="220" y2="200" stroke="#cbd5e1" stroke-width="3"/>
+    <!-- Checkmark Stamp -->
+    <circle cx="200" cy="220" r="26" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/>
+    <text x="200" y="226" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#64748b" text-anchor="middle">BLANCO</text>
+  </g>
+
+  <!-- Clean Ballot Ribbon -->
+  <rect x="130" y="300" width="140" height="32" rx="16" fill="#334155" />
+  <text x="200" y="321" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">VOTO EN BLANCO</text>
+</svg>

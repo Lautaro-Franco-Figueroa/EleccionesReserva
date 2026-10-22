@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elecciones Municipales - Intendente 2026 | Sistema de Voto Electrónico</title>
+    <!-- Hojas de Estilo -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body>
+    <!-- Encabezado Principal y Barra de Accesibilidad -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <span class="logo-icon" aria-hidden="true">🗳️</span>
+                <div>
+                    <h1 class="logo-title">Elecciones Municipales 2026</h1>
+                    <p class="logo-subtitle">Elección de Intendente | Mesa N° 042 - Ciudad Capital</p>
+                </div>
+            </div>
+
+            <!-- Navegación por Roles de Participantes -->
+            <nav class="nav-tabs-wrapper" aria-label="Roles de participantes en la elección">
+                <button class="nav-tab-btn active" data-tab="votante" aria-selected="true">
+                    🗳️ Votante
+                </button>
+                <button class="nav-tab-btn" data-tab="mesa" aria-selected="false">
+                    👨‍💼 Presidente de Mesa
+                </button>
+                <button class="nav-tab-btn" data-tab="tribunal" aria-selected="false">
+                    ⚖️ Tribunal &amp; Auditoría
+                </button>
+            </nav>
+
+            <!-- Herramientas de Accesibilidad (Heurística #7) -->
+            <aside class="accessibility-bar" aria-label="Herramientas de accesibilidad">
+                <button id="btn-toggle-contrast" class="btn-icon" title="Activar modo de alto contraste (WCAG AAA)" aria-pressed="false">
+                    <span aria-hidden="true">👁️</span>
+                    <span class="btn-label">Alto Contraste</span>
+                </button>
+                <button id="btn-toggle-font-size" class="btn-icon" title="Cambiar tamaño de texto">
+                    <span aria-hidden="true">🔤</span>
+                    <span class="btn-label">Texto</span>
+                </button>
+                <button id="btn-open-help" class="btn-icon" title="Ayuda e instrucciones de uso (Tecla H)">
+                    <span aria-hidden="true">❓</span>
+                    <span class="btn-label">Ayuda</span>
+                </button>
+            </aside>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="main-content">
+        
+        <!-- SECCIÓN 1: VISTA DE VOTANTE -->
+        <section id="tab-content-votante" class="tab-content-section" aria-label="Proceso de emisión de voto">
+            
+            <!-- Heurística #1: Visibilidad del Estado del Sistema (Barra de Pasos) -->
+            <nav class="stepper-nav" aria-label="Progreso del voto">
+                <div class="stepper-item active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <span class="step-label">Identificación</span>
+                </div>
+                <div class="stepper-item" data-step="2">
+                    <div class="step-circle">2</div>
+                    <span class="step-label">Selección</span>
+                </div>
+                <div class="stepper-item" data-step="3">
+                    <div class="step-circle">3</div>
+                    <span class="step-label">Revisión</span>
+                </div>
+                <div class="stepper-item" data-step="4">
+                    <div class="step-circle">4</div>
+                    <span class="step-label">Constancia</span>
+                </div>
+            </nav>
+
+            <!-- ==============================================
+                 PASO 1: IDENTIFICACIÓN Y HABILITACIÓN DE MESA
+                 ============================================== -->
+            <div id="step-1" class="step-panel">
+                <div class="step-header">
+                    <h2 class="step-title">Bienvenido/a al Sistema de Voto</h2>
+                    <p class="step-description">
+                        Ingrese su número de documento o matrícula cívica para verificar su habilitación en el padrón de esta mesa.
+                    </p>
+                </div>
+
+                <div class="auth-container">
+                    <div class="auth-form-card">
+                        <div class="form-group">
+                            <label for="input-voter-doc" class="form-label">
+                                <span>Número de Documento (DNI)</span>
+                                <span class="shortcut-pill">Máx. 8 números (admite . y -)</span>
+                            </label>
+                            <input type="text" id="input-voter-doc" class="input-text" placeholder="Ej: 38.123.456 o 38123456" maxlength="12" inputmode="text" autocomplete="off" autofocus>
+                            <div id="dni-feedback-msg" class="dni-feedback-msg hidden" role="status" aria-live="polite"></div>
+                        </div>
+
+                        <!-- Teclado Numérico Virtual para Pantallas Táctiles / Kiosco Accesible -->
+                        <div class="virtual-keypad" aria-label="Teclado numérico en pantalla">
+                            <button type="button" class="keypad-btn" data-key="1">1</button>
+                            <button type="button" class="keypad-btn" data-key="2">2</button>
+                            <button type="button" class="keypad-btn" data-key="3">3</button>
+                            <button type="button" class="keypad-btn" data-key="4">4</button>
+                            <button type="button" class="keypad-btn" data-key="5">5</button>
+                            <button type="button" class="keypad-btn" data-key="6">6</button>
+                            <button type="button" class="keypad-btn" data-key="7">7</button>
+                            <button type="button" class="keypad-btn" data-key="8">8</button>
+                            <button type="button" class="keypad-btn" data-key="9">9</button>
+                            <button type="button" class="keypad-btn keypad-btn-special" data-key="." title="Punto">.</button>
+                            <button type="button" class="keypad-btn" data-key="0">0</button>
+                            <button type="button" class="keypad-btn keypad-btn-special" data-key="-" title="Guion">-</button>
+                            <button type="button" class="keypad-btn keypad-btn-special" data-key="clear" title="Borrar todo">C</button>
+                            <button type="button" class="keypad-btn keypad-btn-special" data-key="backspace" title="Borrar último dígito" style="grid-column: span 2;">&larr; Borrar</button>
+                        </div>
+
+                        <!-- Presets de Demostración Rápida -->
+                        <div class="test-presets-box">
+                            <span class="test-presets-title">Valores de prueba rápida:</span>
+                            <div class="test-presets-buttons">
+                                <button type="button" class="btn-preset-doc" data-doc="38123456">👤 DNI 38.123.456</button>
+                                <button type="button" class="btn-preset-doc" data-doc="41987654">👤 DNI 41.987.654</button>
+                                <button type="button" class="btn-preset-doc" data-doc="random">🎲 DNI Aleatorio</button>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 24px;">
+                            <button id="btn-verify-voter" class="btn btn-primary" style="width: 100%;">
+                                Ingresar al Cuarto Oscuro &rarr;
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Garantía de Privacidad y Cero Datos Personales -->
+                    <aside class="privacy-banner">
+                        <span class="privacy-banner-icon" aria-hidden="true">🔒</span>
+                        <div>
+                            <strong>Garantía Constitucional de Secreto del Voto y Privacidad:</strong>
+                            <p>
+                                Este sistema <strong>NO guarda ningún dato personal</strong> (nombre, domicilio ni DNI en texto plano).
+                                Su número se procesa exclusivamente mediante una función criptográfica unidireccional SHA-256 para verificar
+                                que nadie sufrague dos veces. Su voto en la urna queda 100% desacoplado e inrastreable.
+                            </p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 PASO 2: CUARTO OSCURO / SELECCIÓN DE CANDIDATOS
+                 ============================================== -->
+            <div id="step-2" class="step-panel hidden">
+                <div class="step-header">
+                    <h2 class="step-title">Cuarto Oscuro Digital</h2>
+                    <p class="step-description">
+                        Seleccione la opción electoral de su preferencia haciendo clic sobre la boleta o usando las teclas numéricas [1], [2] o [3].
+                    </p>
+                </div>
+
+                <!-- Grilla de Candidatos de Prueba -->
+                <div id="candidates-grid" class="candidates-grid">
+                    <!-- Las boletas se inyectan dinámicamente desde js/candidates.js -->
+                </div>
+
+                <!-- Acciones de Flujo de Selección -->
+                <div class="flow-actions">
+                    <button id="btn-cancel-step2" class="btn btn-secondary">
+                        &larr; Cancelar Sesión
+                    </button>
+                    <button id="btn-goto-review" class="btn btn-primary btn-disabled" disabled>
+                        Revisar y Continuar &rarr;
+                    </button>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 PASO 3: PANTALLA DE REVISIÓN Y RESUMEN
+                 (Heurística #6: Reconocimiento antes que recuerdo)
+                 ============================================== -->
+            <div id="step-3" class="step-panel hidden">
+                <div class="step-header">
+                    <h2 class="step-title">Revise su Selección</h2>
+                    <p class="step-description">
+                        Compruebe detenidamente los datos antes de emitir definitivamente su voto en la urna digital.
+                    </p>
+                </div>
+
+                <div class="review-container">
+                    <!-- Resumen del candidato seleccionado -->
+                    <div id="review-summary-card">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+
+                    <!-- Botones de Acción: DESHACER (con Advertencia) vs CONFIRMAR -->
+                    <div class="flow-actions">
+                        <!-- Botón clave para Deshacer con Advertencia -->
+                        <button id="btn-undo-vote" class="btn btn-warning">
+                            ↩️ Deshacer Selección / Cambiar Voto
+                        </button>
+                        
+                        <button id="btn-confirm-final-vote" class="btn btn-success">
+                            Confirmar e Ingresar a Urna &check;
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==============================================
+                 PASO 4: VOTO EMITIDO CON ÉXITO Y URNA
+                 ============================================== -->
+            <div id="step-4" class="step-panel hidden">
+                <div class="step-header">
+                    <h2 class="step-title" style="color: #34d399;">¡Su Voto ha sido Emitido con Éxito!</h2>
+                    <p class="step-description">
+                        Su sufragio fue depositado de forma anónima e inviolable en la urna digital de la mesa.
+                    </p>
+                </div>
+
+                <div class="success-container">
+                    <!-- Animación de Urna -->
+                    <div class="urna-visual-box" aria-hidden="true">
+                        <div class="urna-slot"></div>
+                        <div class="urna-ballot"></div>
+                        <div class="urna-body">URNA DIGITAL</div>
+                    </div>
+
+                    <!-- Comprobante Anónimo -->
+                    <div class="receipt-card">
+                        <span class="receipt-title">Constancia Criptográfica Anónima de Sufragio</span>
+                        <div id="receipt-token-display" class="receipt-token">VOTO-0000-0000-2026</div>
+                        <p class="receipt-privacy-guarantee">
+                            Este token acredita la emisión de su voto sin ninguna vinculación a su identidad o a su elección.
+                        </p>
+                    </div>
+
+                    <p class="auto-reset-notice">
+                        La pantalla se limpiará automáticamente para el siguiente elector en <span id="reset-countdown" class="countdown-badge">12</span> segundos.
+                    </p>
+
+                    <div>
+                        <button id="btn-finish-vote" class="btn btn-primary">
+                            Finalizar y Limpiar Pantalla
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- SECCIÓN 2: VISTA DE PRESIDENTE DE MESA -->
+        <section id="tab-content-mesa" class="tab-content-section hidden" aria-label="Panel de Presidente de Mesa">
+            
+            <!-- ESTADO A: INICIO DE SESIÓN DE PRESIDENTE DE MESA -->
+            <div id="president-login-panel" class="step-panel">
+                <div class="step-header">
+                    <div class="president-badge-icon" aria-hidden="true">🏛️</div>
+                    <h2 class="step-title">Acceso Oficial de Presidente de Mesa</h2>
+                    <p class="step-description">
+                        Ingrese el número de mesa asignada y su código de acreditación para validar su identidad y acceder a la administración del padrón y el escrutinio.
+                    </p>
+                </div>
+
+                <div class="auth-container">
+                    <div class="auth-form-card">
+                        <div class="form-group" style="margin-bottom: 16px;">
+                            <label for="input-president-table" class="form-label">
+                                <span>Número de Mesa</span>
+                                <span class="shortcut-pill">Mesa Oficial</span>
+                            </label>
+                            <input type="text" id="input-president-table" class="input-text" placeholder="Ej: 042" maxlength="4" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-president-code" class="form-label">
+                                <span>Código de Verificación / PIN</span>
+                                <span class="shortcut-pill">Credencial de Autoridad</span>
+                            </label>
+                            <input type="password" id="input-president-code" class="input-text" placeholder="Ingrese PIN o código" maxlength="12" autocomplete="off">
+                        </div>
+
+                        <div id="president-login-feedback" class="dni-feedback-msg hidden" role="alert"></div>
+
+                        <!-- Botón Preset de Demostración Rápida -->
+                        <div class="test-presets-box">
+                            <span class="test-presets-title">Credenciales de prueba:</span>
+                            <div class="test-presets-buttons">
+                                <button type="button" id="btn-president-quick-fill" class="btn-preset-doc">
+                                    🔑 Auto-completar: Mesa 042 / Código 2026
+                                </button>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 24px;">
+                            <button id="btn-president-login" class="btn btn-primary" style="width: 100%;">
+                                Iniciar Sesión como Presidente &rarr;
+                            </button>
+                        </div>
+                    </div>
+
+                    <aside class="privacy-banner">
+                        <span class="privacy-banner-icon" aria-hidden="true">🛡️</span>
+                        <div>
+                            <strong>Seguridad y Transparencia Electoral:</strong>
+                            <p>
+                                El acceso al padrón de mesa está reservado a la máxima autoridad electoral.
+                                Permite constatar quiénes sufragaron y asentar incidencias, manteniendo bajo secreto absoluto la opción elegida por cada elector.
+                            </p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+            <!-- ESTADO B: DASHBOARD DE PRESIDENTE DE MESA (Tras iniciar sesión) -->
+            <div id="president-dashboard-panel" class="step-panel hidden">
+                <!-- Header de Sesión Activa -->
+                <div class="president-session-header">
+                    <div class="session-info">
+                        <span class="session-avatar" aria-hidden="true">👨‍💼</span>
+                        <div>
+                            <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff;">Sesión Activa: Presidente de Mesa N° 042</h2>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Autoridad electoral en funciones &bull; Circuito Centro</p>
+                        </div>
+                    </div>
+                    <div class="session-actions">
+                        <button id="btn-annul-cantado" class="btn btn-warning" title="Anular voto por infracción de voto cantado">
+                            ⚠️ Anular Voto (Voto Cantado)
+                        </button>
+                        <button id="btn-president-logout" class="btn btn-secondary">
+                            Cerrar Sesión 🚪
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Indicadores de Estado de la Mesa -->
+                <div class="admin-stats-grid" style="margin-top: 24px;">
+                    <div class="stat-card">
+                        <span class="stat-label">Estado de la Urna</span>
+                        <div id="table-status-badge" class="status-pill status-open">MESA ABIERTA</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Total Votos Emitidos</span>
+                        <div id="stat-total-votes" class="stat-value">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Participación del Padrón</span>
+                        <div id="stat-turnout-pct" class="stat-value">0.0%</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Total Empadronados</span>
+                        <div id="stat-roll-size" class="stat-value">15</div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN A: PADRÓN ELECTORAL Y QUIÉNES VOTARON (Sin mostrar a quién votaron) -->
+                <div class="president-section-card">
+                    <div class="section-card-header">
+                        <div>
+                            <h3 style="font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                                <span>👥 Padrón Electoral de la Mesa N° 042</span>
+                                <span id="padron-stats-pill" class="badge-pill">0 / 15 votaron</span>
+                            </h3>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 4px;">
+                                Constatación oficial de votantes habilitados. <strong>Por secreto electoral, el sistema solo indica si la persona sufragó, sin revelar su elección.</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Filtros y Búsqueda del Padrón -->
+                    <div class="padron-filters-row">
+                        <div class="padron-search-box">
+                            <span aria-hidden="true">🔍</span>
+                            <input type="text" id="input-padron-search" placeholder="Buscar por DNI o Apellido y Nombre..." autocomplete="off">
+                            <button type="button" id="btn-clear-padron-search" class="clear-search-btn" title="Limpiar búsqueda">&times;</button>
+                        </div>
+                        <div class="padron-filter-buttons" role="group" aria-label="Filtrar padrón por estado de voto">
+                            <button type="button" class="padron-filter-btn active" data-filter="all">Todos</button>
+                            <button type="button" class="padron-filter-btn" data-filter="voted">✓ Ya Votaron</button>
+                            <button type="button" class="padron-filter-btn" data-filter="pending">⏳ Pendientes</button>
+                        </div>
+                    </div>
+
+                    <!-- Tabla Accesible del Padrón -->
+                    <div class="padron-table-container">
+                        <table class="padron-table" aria-label="Lista de electores empadronados y estado de sufragio">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 70px;">Orden</th>
+                                    <th scope="col">Apellido y Nombre</th>
+                                    <th scope="col" style="width: 150px;">DNI</th>
+                                    <th scope="col" style="width: 80px;">Sexo</th>
+                                    <th scope="col" style="width: 160px; text-align: center;">Estado de Voto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="padron-table-body">
+                                <!-- Inyectado dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN B: RECUENTO DE VOTOS CON ESTADÍSTICA DE A QUÉ SE VOTÓ MÁS -->
+                <div class="president-section-card" style="margin-top: 28px;">
+                    <div class="section-card-header">
+                        <div>
+                            <h3 style="font-size: 1.25rem; font-weight: 800;">📊 Recuento Oficial y Escrutinio Provisorio</h3>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 4px;">
+                                Cómputo en tiempo real de los sufragios depositados en la urna digital.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- TARJETA DESTACADA: ESTADÍSTICA DE A QUÉ SE VOTÓ MÁS -->
+                    <div id="most-voted-highlight-card" class="most-voted-card">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+
+                    <!-- Barras Comparativas de Escrutinio -->
+                    <div class="scrutiny-box" style="margin-top: 20px;">
+                        <h4 style="margin-bottom: 12px; font-size: 1rem; color: var(--text-primary);">Desglose de Todos los Sufragios:</h4>
+                        <div id="scrutiny-results-bars" class="scrutiny-results-bars">
+                            <!-- Inyectado dinámicamente -->
+                        </div>
+                    </div>
+
+                    <div class="flow-actions" style="margin-top: 24px;">
+                        <button id="btn-toggle-table-state" class="btn btn-danger">
+                            Cerrar Mesa Electoral
+                        </button>
+                        <button id="btn-reset-demo" class="btn btn-secondary">
+                            🔄 Restablecer Demostración
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: TRIBUNAL ELECTORAL Y AUDITORÍA CRIPTOGRÁFICA -->
+        <section id="tab-content-tribunal" class="tab-content-section hidden" aria-label="Auditoría del tribunal electoral">
+            <div class="step-panel">
+                <div class="step-header">
+                    <h2 class="step-title">Tribunal Electoral - Verificación Criptográfica</h2>
+                    <p class="step-description">
+                        Auditoría independiente: Demostración técnica de que no se almacenan datos personales y que la urna es inviolable.
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; margin-bottom: 24px;">
+                    <!-- Lista de Hashes de Votantes Únicos -->
+                    <div class="audit-list-box">
+                        <h4 style="margin-bottom: 10px; color: #38bdf8;">
+                            🛡️ Padrón Criptográfico (Hashes SHA-256)
+                        </h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
+                            Registra únicamente la huella hash anónima para evitar votos repetidos. Ningún nombre ni DNI es recuperable.
+                        </p>
+                        <ul id="hashes-audit-list" class="audit-list">
+                            <!-- Inyectado dinámicamente -->
+                        </ul>
+                    </div>
+
+                    <!-- Urna Digital Desacoplada -->
+                    <div class="audit-list-box">
+                        <h4 style="margin-bottom: 10px; color: #34d399;">
+                            🗳️ Urna Desacoplada (Tokens de Sufragio)
+                        </h4>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 14px;">
+                            Los sufragios se almacenan con inserción aleatoria para imposibilitar la correlación temporal con el padrón.
+                        </p>
+                        <ul id="ballots-audit-list" class="audit-list">
+                            <!-- Inyectado dinámicamente -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer de la Aplicación -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <span>Sistema Electoral Municipal de Código Abierto | Cumplimiento estricto de Usabilidad y Privacidad</span>
+            <span>Mesa 042 &bull; Elecciones a Intendente</span>
+        </div>
+    </footer>
+
+    <!-- ==============================================
+         MODAL DE ADVERTENCIA PARA DESHACER EL VOTO
+         (Requisito obligatorio y Heurísticas #3 y #5)
+         ============================================== -->
+    <div id="undo-modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="undo-modal-title" aria-hidden="true">
+        <div class="modal-card modal-warning">
+            <div class="modal-header-warning">
+                <span class="modal-icon-warning" aria-hidden="true">⚠️</span>
+                <h3 id="undo-modal-title" class="modal-title">ADVERTENCIA: ¿Desea deshacer su voto?</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Está a punto de deshacer su selección para:
+                </p>
+                <div id="undo-modal-candidate-name" class="modal-highlight-candidate">
+                    Candidato Seleccionado
+                </div>
+                <p>
+                    Si continúa, <strong>se cancelará su selección actual</strong> y regresará a la pantalla de boletas para elegir un candidato nuevamente.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-cancel-undo" class="btn btn-secondary">
+                    No, mantener mi voto
+                </button>
+                <button id="btn-confirm-undo" class="btn btn-warning">
+                    Sí, deshacer mi selección
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         MODAL DE AYUDA Y GUÍA DEL VOTANTE
+         (Heurística #10 de Nielsen)
+         ============================================== -->
+    <div id="help-modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="help-modal-title" aria-hidden="true">
+        <div class="modal-card">
+            <div style="padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="help-modal-title" style="font-size: 1.25rem; font-weight: 800;">📖 Guía de Votación y Accesibilidad</h3>
+                <button id="btn-close-help" class="toast-close" aria-label="Cerrar ayuda">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4 style="color: #60a5fa;">¿Cómo votar en 4 sencillos pasos?</h4>
+                <ol style="margin-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+                    <li><strong>Identificación:</strong> Ingrese su DNI para comprobar que está habilitado en la mesa.</li>
+                    <li><strong>Selección:</strong> Haga clic en la boleta de su candidato o en Voto en Blanco.</li>
+                    <li><strong>Revisión:</strong> Verifique los datos en pantalla. Si se equivocó, puede presionar "Deshacer".</li>
+                    <li><strong>Confirmación:</strong> Deposite su voto en la urna y obtenga su comprobante anónimo.</li>
+                </ol>
+
+                <h4 style="color: #60a5fa; margin-top: 10px;">Atajos de Teclado:</h4>
+                <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem;">
+                    <li><kbd>[1]</kbd> : Seleccionar Candidata Dra. Valeria Gómez</li>
+                    <li><kbd>[2]</kbd> : Seleccionar Candidato Ing. Roberto Martínez</li>
+                    <li><kbd>[3]</kbd> o <kbd>[0]</kbd> : Seleccionar Voto en Blanco</li>
+                    <li><kbd>[4]</kbd> : Seleccionar Voto Nulo</li>
+                    <li><kbd>[H]</kbd> : Abrir esta guía de ayuda</li>
+                    <li><kbd>[Esc]</kbd> : Cerrar diálogos y modales</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button onclick="document.getElementById('help-modal-overlay').classList.add('hidden')" class="btn btn-primary">
+                    Entendido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         MODAL DE ANULACIÓN POR VOTO CANTADO
+         (Infracción electoral / Prerrogativa de Autoridad de Mesa)
+         ============================================== -->
+    <div id="annul-modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="annul-modal-title" aria-hidden="true">
+        <div class="modal-card modal-warning">
+            <div class="modal-header-warning">
+                <span class="modal-icon-warning" aria-hidden="true">⚠️</span>
+                <h3 id="annul-modal-title" class="modal-title">Procedimiento de Anulación por Voto Cantado</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <strong>Atención Presidente de Mesa:</strong> Conforme al Código Electoral, si un elector manifiesta públicamente el sentido de su voto en el recinto (voto cantado) o adultera la boleta violando el secreto cívico, el voto debe ser <strong>formalmente anulado</strong>.
+                </p>
+                <div class="form-group" style="margin-top: 8px;">
+                    <label for="select-annul-reason" class="form-label">
+                        <span>Causal de la anulación para el acta:</span>
+                    </label>
+                    <select id="select-annul-reason" class="input-text" style="text-align: left; font-size: 0.95rem; font-weight: normal; padding: 12px; letter-spacing: normal;">
+                        <option value="Voto cantado en voz alta por el elector">Voto cantado en voz alta por el elector</option>
+                        <option value="Exhibición pública deliberada de la boleta">Exhibición pública deliberada de la boleta</option>
+                        <option value="Rotura intencional o adulteración de la boleta">Rotura intencional o adulteración de la boleta</option>
+                    </select>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 4px;">
+                    Esta acción computará un <strong>Voto Nulo</strong> en la urna y registrará la incidencia en el acta oficial de auditoría de la mesa.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-cancel-annul" class="btn btn-secondary">
+                    Cancelar
+                </button>
+                <button id="btn-confirm-annul" class="btn btn-warning">
+                    Confirmar Anulación en Urna
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor para Notificaciones Toast Accesibles -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Módulos JavaScript -->
+    <script src="js/candidates.js"></script>
+    <script src="js/cryptoService.js"></script>
+    <script src="js/electionStore.js"></script>
+    <script src="js/padronStore.js"></script>
+    <script src="js/nielsenFeedback.js"></script>
+    <script src="js/accessibility.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/viewCapture.js"></script>
+</body>
+</html>
